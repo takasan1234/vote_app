@@ -15,4 +15,14 @@ class Result(TemplateView):
     # セッションから投票した選択肢を取得して結果ページに表示
     def get(self, request):
         vote = request.session.get('vote')
-        return render(request, 'result_page.html', {'vote': vote})
+        context = {'vote': vote}
+        return render(request, 'result_page.html', context)
+    
+
+
+# 演習２の時に使用
+
+# class AlreadyVoted(TemplateView):
+#     # すでに投票している場合のページを表示
+#     def get(self, request):
+#         return render(request, 'already_voted.html')
