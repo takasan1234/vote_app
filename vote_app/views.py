@@ -4,6 +4,8 @@ from django.views.generic import TemplateView
 class Vote(TemplateView):
     # 投票ページを表示
     def get(self, request):
+        if request.session.get("vote") != None:
+            return redirect('already_voted')
         return render(request, 'vote_page.html')
     # 投票ページで投票した選択肢をセッションに保存
     def post(self, request):
@@ -22,7 +24,12 @@ class Result(TemplateView):
 
 # 演習２の時に使用
 
-# class AlreadyVoted(TemplateView):
-#     # すでに投票している場合のページを表示
-#     def get(self, request):
-#         return render(request, 'already_voted.html')
+class AlreadyVoted(TemplateView):
+    # すでに投票している場合のページを表示
+    def get(self, request):
+        print("already_voted get")
+        return render(request, 'already_voted.html')
+    def post(self, request):
+        if 'reset' in request.POST:
+            request.session.pop('vote', None)
+        return redirect('vote')

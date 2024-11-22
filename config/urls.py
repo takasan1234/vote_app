@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('vote_page/', views.Vote.as_view(), name="vote"),
     path('result_page/', views.Result.as_view(), name="result"),
+    path('already_voted/', views.AlreadyVoted.as_view(), name="already_voted"),
 ]
